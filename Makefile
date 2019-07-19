@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -I. -std=c89 -pedantic -Wall -Werror
+CFLAGS = -g -I. -std=c89 -pedantic -Wall -Werror
 DEPS = bscanf.h
 OBJ = bscanf.o test_bscanf.o
 
