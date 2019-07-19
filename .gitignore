@@ -1,0 +1,6 @@
+# MacOS-related
+**/.DS_Store
+
+# Binaries
+test_bscanf
+**/*.o
