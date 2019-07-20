@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <assert.h>
 
 #include "bscanf.h"
@@ -63,10 +64,38 @@ static void test_double()
   assert(d == 9.1093837015e-31);
 }
 
+static void test_date()
+{
+  unsigned short day;
+  char *month = malloc(sizeof(char) * 10);
+  unsigned long year;
+  float time;
+  char timezone[3];
+  /* "One small step for man..." */
+  const char* buffer = "July 20, 3661 10.9333 PM EDT";
+  char* out_buf = malloc(sizeof(char) * (strlen(buffer) + 1));
+  const char* format = "%9s%hu,%lo%f %*2c %3c";
+  int ret_val;
+  int i;
+
+  ret_val = bscanf(buffer, format, month, &day, &year, &time, timezone);
+  assert(5 == ret_val);
+  sprintf(out_buf, "%s %hu, %lo %g PM %.3s", month, day, year, time, timezone);
+
+  for (i = 0; i < strlen(buffer) + 1; i++) {
+    assert(buffer[i] == out_buf[i]);
+  }
+
+  free(out_buf);
+  free(month);
+}
+
 int main(void)
 {
   test_basic();
   test_decimal();
   test_double();
+  test_date();
+  printf("%s\n", "All tests passed.");
   return 0;
 }
