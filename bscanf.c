@@ -53,7 +53,7 @@ int bscanf(const char *buffer, const char *format, ...)
 
   while ('\0' != *fmt_ptr) {
     /* We ignore spaces before specifiers. */
-    if (isspace(*fmt_ptr)) {
+    if (isspace((unsigned char)*fmt_ptr)) {
       /* Any whitespace in the format consumes all of the whitespace in the
          buffer. */
       _BSCANF_CONSUME_WSPACE();
@@ -74,7 +74,7 @@ int bscanf(const char *buffer, const char *format, ...)
       }
 
       /* Check for maximum field width. */
-      if (isdigit(*fmt_ptr)) {
+      if (isdigit((unsigned char)*fmt_ptr)) {
         max_width = strtoul(fmt_ptr, &end_ptr, 0);
         /* Check if the sequence is a number > 0. */
         _BSCANF_CHECK(fmt_ptr != end_ptr);
@@ -138,7 +138,7 @@ int bscanf(const char *buffer, const char *format, ...)
           /* Consume the character (string) and ignore it in this case. */
           for (; max_width > 0; max_width--) {
             buf_ptr++;
-            if (*buf_ptr == '\0' || (isspace(*buf_ptr) && 's' == *fmt_ptr)) {
+            if (*buf_ptr == '\0' || (isspace((unsigned char)*buf_ptr) && 's' == *fmt_ptr)) {
               break;
             }
           }
@@ -157,7 +157,7 @@ int bscanf(const char *buffer, const char *format, ...)
 
           for (; max_width > 0; max_width--) {
             *char_ptr = *buf_ptr;
-            if (*buf_ptr == '\0' || (isspace(*buf_ptr) && 's' == *fmt_ptr)) {
+            if (*buf_ptr == '\0' || (isspace((unsigned char)*buf_ptr) && 's' == *fmt_ptr)) {
               break;
             }
             char_ptr++;
